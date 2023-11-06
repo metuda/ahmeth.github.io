@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Data Viewer</title>
+    <script>
+        function fetchData() {
+            fetch('http://ahmeth.free.nf/api/api_v1.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Assuming the response structure has 'customers' and 'bills' keys
+                    document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('result').innerText = 'Error fetching data. Check console for details: ' + error;
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>API Data Viewer</h1>
+    <button onclick="fetchData()">Fetch Data</button>
+    <pre id="result"></pre>
+</body>
+</html>
